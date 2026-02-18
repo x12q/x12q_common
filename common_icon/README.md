@@ -1,0 +1,1 @@
+Contains common compose icon resources.
