@@ -35,7 +35,7 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(compose.components.resources)
     implementation(libs.material3)
-    implementation(project(":common_utils"))
+    implementation(project(":x12q_common:common_utils"))
 
     implementation(libs.kotlin.datetime)
 
