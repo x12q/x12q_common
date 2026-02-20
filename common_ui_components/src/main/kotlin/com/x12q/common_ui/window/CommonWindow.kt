@@ -91,7 +91,6 @@ fun CommonWindow(
 
 @Composable
 fun CommonDecoratedWindowStyle(isDark: Boolean):DecoratedWindowStyle {
-    val base = DecoratedWindowStyle.dark()
     if(isDark){
         return DecoratedWindowStyle.dark()
     }else{
