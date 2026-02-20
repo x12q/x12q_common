@@ -1,0 +1,79 @@
+package com.x12q.common_ui.window
+
+import androidx.compose.foundation.layout.Column
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.window.WindowState
+import androidx.compose.ui.window.rememberWindowState
+import org.jetbrains.jewel.foundation.theme.JewelTheme
+import org.jetbrains.jewel.window.DecoratedWindow
+import org.jetbrains.jewel.window.DecoratedWindowScope
+import org.jetbrains.jewel.window.TitleBar
+import org.jetbrains.jewel.window.TitleBarScope
+import org.jetbrains.jewel.window.defaultDecoratedWindowStyle
+import org.jetbrains.jewel.window.newFullscreenControls
+import org.jetbrains.jewel.window.styling.DecoratedWindowStyle
+
+/**
+ * a preconfig wrapper for [TitleBar]
+ */
+@Composable
+fun DecoratedWindowScope.TitleBarView(
+    modifier: Modifier = Modifier,
+    content: @Composable TitleBarScope.()->Unit,
+) {
+    TitleBar(
+        /**
+         * This allows the controller buttons to show up as part of the screen
+         * when the app goes into full-screen mode.
+         */
+        modifier.newFullscreenControls()
+    ){
+        content()
+    }
+}
+
+/**
+ * A convenient wrapper of jewel title bar and decorated window.
+ */
+@Composable
+fun CommonWindow(
+    onCloseRequest: () -> Unit,
+    state: WindowState = rememberWindowState(),
+    visible: Boolean = true,
+    title: String = "",
+    icon: Painter? = null,
+    resizable: Boolean = true,
+    enabled: Boolean = true,
+    focusable: Boolean = true,
+    alwaysOnTop: Boolean = false,
+    onPreviewKeyEvent: (KeyEvent) -> Boolean = { false },
+    onKeyEvent: (KeyEvent) -> Boolean = { false },
+    style: DecoratedWindowStyle = JewelTheme.defaultDecoratedWindowStyle,
+    titleBarContent: @Composable TitleBarScope.()->Unit,
+    content: @Composable DecoratedWindowScope.() -> Unit,
+){
+    DecoratedWindow(
+        onCloseRequest = onCloseRequest,
+        state = state,
+        visible = visible,
+        title = title,
+        icon = icon,
+        resizable = resizable,
+        enabled = enabled,
+        focusable = focusable,
+        alwaysOnTop = alwaysOnTop,
+        onPreviewKeyEvent = onPreviewKeyEvent,
+        onKeyEvent = onKeyEvent,
+        style = style,
+    ){
+        Column {
+            TitleBarView(content = titleBarContent)
+            content()
+        }
+    }
+}
+
+

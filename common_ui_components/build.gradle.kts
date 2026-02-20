@@ -36,7 +36,7 @@ dependencies {
     implementation(compose.components.resources)
     implementation(libs.material3)
     implementation(project(":common_utils"))
-
+    implementation(libs.jetbrain.jewel.decorated.window)
     implementation(libs.kotlin.datetime)
 
     implementation(libs.setting)

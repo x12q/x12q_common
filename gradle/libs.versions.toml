@@ -20,7 +20,7 @@ kotlinInjectVersion = "0.8.0"
 amazonAnvilVersion = "0.1.6"
 nettyVersion = "4.2.9.Final"
 jetbrainRuntimeVersion = "1.6.0"
-jewelVersion = "0.32.0-253.28294.205"
+jewelVersion = "0.33.0-253.29795"
 
 ktor = "3.4.0"
 logback = "1.4.14"
