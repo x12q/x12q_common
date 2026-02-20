@@ -4,6 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
+import com.x12q.common_ui.window.CommonDecoratedWindowStyle
+import com.x12q.common_ui.window.CommonTitleBarStyle
+import org.jetbrains.jewel.window.styling.LocalDecoratedWindowStyle
+import org.jetbrains.jewel.window.styling.LocalTitleBarStyle
 
 
 val LocalCommonColorProvider = staticCompositionLocalOf { CommonColor.dark }
@@ -35,6 +39,8 @@ fun BaseTheme(
         LocalCommonColorProvider provides color,
         LocalTypographyProvider provides CommonTypography,
         LocalShapesProvider provides Shapes,
+        // LocalDecoratedWindowStyle provides CommonDecoratedWindowStyle(isDarkTheme),
+        // LocalTitleBarStyle provides CommonTitleBarStyle(isDarkTheme),
         content = content
     )
 }

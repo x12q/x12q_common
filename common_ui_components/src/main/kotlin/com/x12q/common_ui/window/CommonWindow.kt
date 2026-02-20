@@ -9,6 +9,7 @@ import androidx.compose.ui.input.key.KeyEvent
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.rememberWindowState
 import org.jetbrains.jewel.foundation.theme.JewelTheme
+import org.jetbrains.jewel.foundation.theme.JewelTheme.Companion
 import org.jetbrains.jewel.intui.window.styling.dark
 import org.jetbrains.jewel.intui.window.styling.light
 import org.jetbrains.jewel.window.DecoratedWindow
@@ -16,6 +17,7 @@ import org.jetbrains.jewel.window.DecoratedWindowScope
 import org.jetbrains.jewel.window.TitleBar
 import org.jetbrains.jewel.window.TitleBarScope
 import org.jetbrains.jewel.window.defaultDecoratedWindowStyle
+import org.jetbrains.jewel.window.defaultTitleBarStyle
 import org.jetbrains.jewel.window.newFullscreenControls
 import org.jetbrains.jewel.window.styling.DecoratedWindowStyle
 import org.jetbrains.jewel.window.styling.LocalDecoratedWindowStyle
@@ -28,6 +30,7 @@ import org.jetbrains.jewel.window.styling.TitleBarStyle
 @Composable
 fun DecoratedWindowScope.TitleBarView(
     modifier: Modifier = Modifier,
+    style: TitleBarStyle,
     content: @Composable TitleBarScope.()->Unit,
 ) {
     TitleBar(
@@ -35,7 +38,8 @@ fun DecoratedWindowScope.TitleBarView(
          * This allows the controller buttons to show up as part of the screen
          * when the app goes into full-screen mode.
          */
-        modifier.newFullscreenControls()
+        modifier = modifier.newFullscreenControls(),
+        style = style,
     ){
         content()
     }
@@ -48,6 +52,7 @@ fun DecoratedWindowScope.TitleBarView(
 fun CommonWindow(
     onCloseRequest: () -> Unit,
     state: WindowState = rememberWindowState(),
+    isDarkTheme: Boolean = true,
     visible: Boolean = true,
     title: String = "",
     icon: Painter? = null,
@@ -57,8 +62,6 @@ fun CommonWindow(
     alwaysOnTop: Boolean = false,
     onPreviewKeyEvent: (KeyEvent) -> Boolean = { false },
     onKeyEvent: (KeyEvent) -> Boolean = { false },
-    style: DecoratedWindowStyle = JewelTheme.defaultDecoratedWindowStyle,
-    isDarkTheme: Boolean = true,
     titleBarContent: @Composable TitleBarScope.()->Unit,
     content: @Composable DecoratedWindowScope.() -> Unit,
 ){
@@ -78,10 +81,10 @@ fun CommonWindow(
             alwaysOnTop = alwaysOnTop,
             onPreviewKeyEvent = onPreviewKeyEvent,
             onKeyEvent = onKeyEvent,
-            style = style,
+            style = LocalDecoratedWindowStyle.current,
         ){
             Column {
-                TitleBarView(content = titleBarContent)
+                TitleBarView(style = LocalTitleBarStyle.current, content = titleBarContent)
                 content()
             }
         }
