@@ -2,6 +2,7 @@ package com.x12q.common_ui.window
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.key.KeyEvent
@@ -17,6 +18,8 @@ import org.jetbrains.jewel.window.TitleBarScope
 import org.jetbrains.jewel.window.defaultDecoratedWindowStyle
 import org.jetbrains.jewel.window.newFullscreenControls
 import org.jetbrains.jewel.window.styling.DecoratedWindowStyle
+import org.jetbrains.jewel.window.styling.LocalDecoratedWindowStyle
+import org.jetbrains.jewel.window.styling.LocalTitleBarStyle
 import org.jetbrains.jewel.window.styling.TitleBarStyle
 
 /**
@@ -55,26 +58,32 @@ fun CommonWindow(
     onPreviewKeyEvent: (KeyEvent) -> Boolean = { false },
     onKeyEvent: (KeyEvent) -> Boolean = { false },
     style: DecoratedWindowStyle = JewelTheme.defaultDecoratedWindowStyle,
+    isDarkTheme: Boolean = true,
     titleBarContent: @Composable TitleBarScope.()->Unit,
     content: @Composable DecoratedWindowScope.() -> Unit,
 ){
-    DecoratedWindow(
-        onCloseRequest = onCloseRequest,
-        state = state,
-        visible = visible,
-        title = title,
-        icon = icon,
-        resizable = resizable,
-        enabled = enabled,
-        focusable = focusable,
-        alwaysOnTop = alwaysOnTop,
-        onPreviewKeyEvent = onPreviewKeyEvent,
-        onKeyEvent = onKeyEvent,
-        style = style,
+    CompositionLocalProvider(
+        LocalDecoratedWindowStyle provides CommonDecoratedWindowStyle(isDarkTheme),
+        LocalTitleBarStyle provides CommonTitleBarStyle(isDarkTheme)
     ){
-        Column {
-            TitleBarView(content = titleBarContent)
-            content()
+        DecoratedWindow(
+            onCloseRequest = onCloseRequest,
+            state = state,
+            visible = visible,
+            title = title,
+            icon = icon,
+            resizable = resizable,
+            enabled = enabled,
+            focusable = focusable,
+            alwaysOnTop = alwaysOnTop,
+            onPreviewKeyEvent = onPreviewKeyEvent,
+            onKeyEvent = onKeyEvent,
+            style = style,
+        ){
+            Column {
+                TitleBarView(content = titleBarContent)
+                content()
+            }
         }
     }
 }
