@@ -17,6 +17,7 @@ import org.jetbrains.jewel.window.TitleBarScope
 import org.jetbrains.jewel.window.defaultDecoratedWindowStyle
 import org.jetbrains.jewel.window.newFullscreenControls
 import org.jetbrains.jewel.window.styling.DecoratedWindowStyle
+import org.jetbrains.jewel.window.styling.TitleBarStyle
 
 /**
  * a preconfig wrapper for [TitleBar]
@@ -86,5 +87,14 @@ fun CommonDecoratedWindowStyle(isDark: Boolean):DecoratedWindowStyle {
         return DecoratedWindowStyle.dark()
     }else{
         return DecoratedWindowStyle.light()
+    }
+}
+
+@Composable
+fun CommonTitleBarStyle(isDark: Boolean):TitleBarStyle{
+    return if(isDark){
+        TitleBarStyle.dark()
+    }else{
+        TitleBarStyle.light()
     }
 }
