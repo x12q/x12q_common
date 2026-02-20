@@ -8,6 +8,8 @@ import androidx.compose.ui.input.key.KeyEvent
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.rememberWindowState
 import org.jetbrains.jewel.foundation.theme.JewelTheme
+import org.jetbrains.jewel.intui.window.styling.dark
+import org.jetbrains.jewel.intui.window.styling.light
 import org.jetbrains.jewel.window.DecoratedWindow
 import org.jetbrains.jewel.window.DecoratedWindowScope
 import org.jetbrains.jewel.window.TitleBar
@@ -77,3 +79,12 @@ fun CommonWindow(
 }
 
 
+@Composable
+fun CommonDecoratedWindowStyle(isDark: Boolean):DecoratedWindowStyle {
+    val base = DecoratedWindowStyle.dark()
+    if(isDark){
+        return DecoratedWindowStyle.dark()
+    }else{
+        return DecoratedWindowStyle.light()
+    }
+}
