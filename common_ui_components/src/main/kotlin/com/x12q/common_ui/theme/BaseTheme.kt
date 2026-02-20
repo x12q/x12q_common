@@ -39,8 +39,6 @@ fun BaseTheme(
         LocalCommonColorProvider provides color,
         LocalTypographyProvider provides CommonTypography,
         LocalShapesProvider provides Shapes,
-        // LocalDecoratedWindowStyle provides CommonDecoratedWindowStyle(isDarkTheme),
-        // LocalTitleBarStyle provides CommonTitleBarStyle(isDarkTheme),
         content = content
     )
 }
