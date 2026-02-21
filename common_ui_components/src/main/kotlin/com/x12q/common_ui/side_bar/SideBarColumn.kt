@@ -1,4 +1,4 @@
-package com.x12q.common_ui
+package com.x12q.common_ui.side_bar
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
