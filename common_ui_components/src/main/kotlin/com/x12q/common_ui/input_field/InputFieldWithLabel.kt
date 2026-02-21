@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.x12q.common_ui.CenterAlignRow
+import com.x12q.common_ui.row.CenterAlignRow
 import com.x12q.common_ui.text.LabelText
 import com.x12q.common_ui.preview_views.PreviewColumnOnSurface
 import com.x12q.common_ui.theme.BaseTheme
