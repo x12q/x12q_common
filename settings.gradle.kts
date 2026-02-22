@@ -16,3 +16,7 @@ rootProject.name = "x12q_common"
 include("common_ui_components")
 include("common_utils")
 include("common_icon")
+include("common_vm")
+include("common_di")
+include("common_di:di")
+include("common_di:di_compose")
