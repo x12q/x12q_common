@@ -5,15 +5,15 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.window.ApplicationScope
 import com.x12q.common_di.di.global.GlobalComponent
-import com.x12q.common_di.di.global.create
 
 
 @Composable
 fun ApplicationScope.WithGlobalComponent(
+    globalComponentFactory: () -> GlobalComponent,
     content: @Composable GlobalScope.() -> Unit,
 ) {
     val globalComponent = remember {
-        GlobalComponent::class.create()
+        globalComponentFactory()
     }
 
     val globalComponentAccessorScope = remember {

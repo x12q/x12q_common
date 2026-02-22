@@ -27,6 +27,7 @@ These composable functions and composable scopes are structured in a way to enfo
 - Two component of the same type (two `Screen` for example), cannot access each other and has their own set of dependencies
 - Two component of the same type may have a common parent component (such as two `Screen` components can have one common `Window` parent component)
 
+
 # Provide bindings to each component level from the consumer of the DI structure (such as an app)
 
 Similar to using `@Module` + `@InstallIn()` on android, use `@ContributesTo(scope::class)` to contribute to a scope.
@@ -34,6 +35,39 @@ Similar to using `@Module` + `@InstallIn()` on android, use `@ContributesTo(scop
 For example:
 `@ContributesTo(GlobalComponent.Scope::class)` -> will add bindings to `Global` component
 `@ContributesTo(ScreenComponent.Scope::class)` -> will add bindings to `Screen` component
+
+
+# Starting point:
+`@MergeComponent` can only merge `@ContributesTo` interfaces that are visible during its own module's compilation (a KSP limitation). Since app-specific contributions (e.g. `GlobalComponentContribution`) live in the app module, `@MergeComponent` must also live there.
+
+For this reason, `GlobalComponent` in this library is a plain interface, not a `@MergeComponent`.
+
+The app module must declare a merged component that extends `GlobalComponent`:
+
+```kotlin
+@MergeComponent(GlobalComponent.Scope::class)
+@SingleIn(GlobalComponent.Scope::class)
+interface AppGlobalComponent : GlobalComponent
+```
+
+Then in the main function of the app:
+
+```kotlin
+fun main(){
+    application {
+        WithGlobalComponent(
+            globalComponentFactory = {
+                AppGlobalComponent::class.create()
+            }
+        ){
+            val binding = (globalComponent as MyContribution).getBindingInApp()
+            // ...
+        }
+    }
+}
+```
+
+
 
 
 # How are DI components created and distributed?
