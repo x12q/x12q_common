@@ -21,7 +21,7 @@ class ViewModelFactoryProvider(
         return null
     }
 
-    fun <T:Any> getFactoryByViewModelClass(vmClass: KClass<T>): ViewModelFactory? {
+    fun  getFactoryByViewModelClass(vmClass: KClass<*>): ViewModelFactory<*>? {
         for (mem in containers) {
             val factory = mem.getFactoryByViewModelClass(vmClass)
             if (factory != null) {

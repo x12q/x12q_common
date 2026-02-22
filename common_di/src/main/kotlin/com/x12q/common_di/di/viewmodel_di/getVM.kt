@@ -13,17 +13,17 @@ inline fun <reified V:Any> getVM(key:Any? = null): V {
     val factoryProvider: ViewModelFactoryProvider = checkNotNull(LocalViewModeFactoryProvider.current) {
         "${ViewModelFactoryProvider::class.simpleName} is not available"
     }
-    val factory = checkNotNull(factoryProvider.getFactoryByViewModelClass(V::class)) {
+    val factory = checkNotNull(factoryProvider.getFactoryByViewModelClass(V::class) as? ViewModelFactory<V>) {
         "${factoryProvider.name} cannot provide view mode of type ${V::class}"
     }
-    return remember(key) {factory.createVM() as V}
+    return remember(key) { factory.createVM() }
 }
 
 /**
  * Get a view model [V] that can be created by an assisted factory [F].
  */
 @Composable
-inline fun <reified V, reified F> getVM(
+inline fun <reified V, reified F: AssistedInjectViewModelFactory<V>> getVM(
     key:Any? = null,
     crossinline create: (F) -> V
 ): V {
