@@ -24,7 +24,7 @@ class ViewModelFactoryContainer(
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <T : ViewModel> getFactoryByViewModelClass(vmClass: KClass<T>): ViewModelFactory? {
+    fun <T:Any> getFactoryByViewModelClass(vmClass: KClass<T>): ViewModelFactory? {
         return vmFactoryMap[vmClass]
     }
 }
