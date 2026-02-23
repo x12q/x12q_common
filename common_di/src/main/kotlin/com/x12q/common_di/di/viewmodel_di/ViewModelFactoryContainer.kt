@@ -1,6 +1,5 @@
 package com.x12q.common_di.di.viewmodel_di
 
-import androidx.lifecycle.ViewModel
 import kotlin.reflect.KClass
 
 
@@ -9,7 +8,7 @@ import kotlin.reflect.KClass
  */
 class ViewModelFactoryContainer(
     factories: Set<ViewModelFactory>,
-    assistedInjectFactories: Set<AssistedInjectViewModelFactory>
+    assistedInjectFactories: Set<ViewModelAssistedFactory>
 ) {
 
     val vmFactoryMap: Map<KClass<*>, ViewModelFactory> = factories.associateBy { it.classKey }
@@ -18,7 +17,7 @@ class ViewModelFactoryContainer(
      * Assisted factories are mapped to their own classes.
      * The reason is that the overload of `getVM` that require factory also provide the type of the factory. So there's no need to use the type of the VM for looking up.
      */
-    val assistedInjectFactoryMap: Map<KClass<*>, AssistedInjectViewModelFactory> = assistedInjectFactories.associateBy { it::class }
+    val assistedInjectFactoryMap: Map<KClass<*>, ViewModelAssistedFactory> = assistedInjectFactories.associateBy { it::class }
 
     inline fun <reified F> getAssistedFactory(): F? {
         return assistedInjectFactoryMap[F::class] as F?
