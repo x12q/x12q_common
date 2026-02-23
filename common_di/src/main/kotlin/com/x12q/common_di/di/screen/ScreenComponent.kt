@@ -1,6 +1,5 @@
 package com.x12q.common_di.di.screen
 
-import com.x12q.common_di.di.view.ViewComponent
 import com.x12q.common_di.di.viewmodel_di.AssistedInjectViewModelFactory
 import com.x12q.common_di.di.viewmodel_di.ViewModelFactoryContainer
 import com.x12q.common_di.di.viewmodel_di.ViewModelFactoryProvider
@@ -27,8 +26,6 @@ interface ScreenComponent {
 
     fun getViewModelFactoryProvider(): ScreenScopeViewModelFactoryProvider
 
-
-    fun getViewComponentFactory(): ViewComponent.Factory
 
     @Provides
     @SingleIn(Scope::class)
