@@ -81,8 +81,8 @@ fun main() {
 For this reason, `GlobalComponent` in this library is a plain interface, not a `@MergeComponent`. The app module must declare a merged component that extends it:
 
 ```kotlin
-@MergeComponent(GlobalComponent.Scope::class)
-@SingleIn(GlobalComponent.Scope::class)
+@MergeComponent(AppGlobalComponent.Scope::class)
+@SingleIn(AppGlobalComponent.Scope::class)
 interface AppGlobalComponent : GlobalComponent
 ```
 
@@ -108,7 +108,7 @@ fun main() {
 
 Similar to `@Module` + `@InstallIn()` on Android, use `@ContributesTo(scope::class)` to contribute bindings to a component scope:
 
-- `@ContributesTo(GlobalComponent.Scope::class)` -> adds bindings to `Global`
+- `@ContributesTo(AppGlobalComponent.Scope::class)` -> adds bindings to `Global`
 - `@ContributesTo(WindowComponent.Scope::class)` -> adds bindings to `Window`
 - `@ContributesTo(ScreenComponent.Scope::class)` -> adds bindings to `Screen`
 
