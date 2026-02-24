@@ -36,7 +36,7 @@ import com.x12q.common_ui_components.generated.resources.JetBrainsMono_ThinItali
 import com.x12q.common_ui_components.generated.resources.Res
 import org.jetbrains.compose.resources.Font
 
-object CommonTypography {
+object BaseTypography {
 
     val jetBrainMonoFontFamily: FontFamily
         @Composable get() = FontFamily(

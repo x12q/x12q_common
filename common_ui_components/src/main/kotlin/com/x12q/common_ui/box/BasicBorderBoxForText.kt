@@ -18,7 +18,7 @@ fun BasicBorderContentBox(
 ) {
     BasicContentBox(
         modifier = modifier,
-        border = Modifier.Companion.corner4Border(),
+        border = Modifier.corner4Border(),
         content = content,
     )
 }

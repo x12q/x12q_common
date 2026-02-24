@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.x12q.common_ui.BasicIcon
 import com.x12q.common_ui.preview_views.PreviewRow
-import com.x12q.common_ui.theme.LocalCommonColorProvider
+import com.x12q.common_ui.theme.LocalBaseColorProvider
 
 /**
  * A basic icon button derived from [Button2] with a default padding that makes it square.
@@ -30,7 +30,7 @@ fun IconButton2(
     icon: @Composable BoxScope.(IconButton2Colors) -> Unit,
 ) {
     val actualColor = if(colors == IconButton2Colors.undefined){
-        LocalCommonColorProvider.current.iconButtonColors
+        LocalBaseColorProvider.current.iconButtonColors
     }else{
         colors
     }
@@ -55,7 +55,7 @@ fun IconButton2(
     contentPadding: PaddingValues = PaddingValues(horizontal = 5.dp, vertical = 5.dp),
 ) {
     val actualColor = if(colors == IconButton2Colors.undefined){
-        LocalCommonColorProvider.current.iconButtonColors
+        LocalBaseColorProvider.current.iconButtonColors
     }else{
         colors
     }
@@ -81,7 +81,7 @@ fun IconButton2(
     contentPadding: PaddingValues = PaddingValues(horizontal = 5.dp, vertical = 5.dp),
 ) {
     val actualColor = if(colors == IconButton2Colors.undefined){
-        LocalCommonColorProvider.current.iconButtonColors
+        LocalBaseColorProvider.current.iconButtonColors
     }else{
         colors
     }
@@ -107,7 +107,7 @@ fun IconButton2(
     contentPadding: PaddingValues = PaddingValues(horizontal = 5.dp, vertical = 5.dp),
 ) {
     val actualColor = if(colors == IconButton2Colors.undefined){
-        LocalCommonColorProvider.current.iconButtonColors
+        LocalBaseColorProvider.current.iconButtonColors
     }else{
         colors
     }

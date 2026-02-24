@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.x12q.common_ui.button.Button2
 import com.x12q.common_ui.button.Button2Colors
-import com.x12q.common_ui.theme.LocalCommonColorProvider
+import com.x12q.common_ui.theme.LocalBaseColorProvider
 
 /**
  * SecondaryButton is designed to be visually distinct from the primary button (Button2).
@@ -19,7 +19,7 @@ fun SecondaryButton(
 ){
     val actualColor = if (colors == Button2Colors.undefined){
         Button2Colors.secondaryButton(
-            LocalCommonColorProvider.current.baseColors
+            LocalBaseColorProvider.current.baseColors
         )
     } else {
         colors

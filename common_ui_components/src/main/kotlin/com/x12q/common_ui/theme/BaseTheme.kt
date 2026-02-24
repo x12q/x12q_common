@@ -4,22 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
-import com.x12q.common_ui.window.CommonDecoratedWindowStyle
-import com.x12q.common_ui.window.CommonTitleBarStyle
-import org.jetbrains.jewel.window.styling.LocalDecoratedWindowStyle
-import org.jetbrains.jewel.window.styling.LocalTitleBarStyle
 
 
-val LocalCommonColorProvider = staticCompositionLocalOf { CommonColor.dark }
-
-val LocalTypographyProvider = staticCompositionLocalOf { CommonTypography }
-
-val LocalShapesProvider = staticCompositionLocalOf { Shapes }
+val LocalBaseColorProvider = staticCompositionLocalOf { BaseColor.dark }
+val LocalBaseTypographyProvider = staticCompositionLocalOf { BaseTypography }
+val LocalBaseShapesProvider = staticCompositionLocalOf { BaseShapes }
 
 object BaseTheme{
-    val colors: CommonColor @Composable get() = LocalCommonColorProvider.current
-    val typography: CommonTypography @Composable get() = LocalTypographyProvider.current
-    val shapes: Shapes @Composable get() = LocalShapesProvider.current
+    val colors: BaseColor @Composable get() = LocalBaseColorProvider.current
+    val typography: BaseTypography @Composable get() = LocalBaseTypographyProvider.current
+    val shapes: BaseShapes @Composable get() = LocalBaseShapesProvider.current
 }
 
 @Composable
@@ -29,16 +23,16 @@ fun BaseTheme(
 ) {
     val color = remember(isDarkTheme){
         if(isDarkTheme){
-            CommonColor.dark
+            BaseColor.dark
         }else{
-            CommonColor.light
+            BaseColor.light
         }
     }
 
     CompositionLocalProvider(
-        LocalCommonColorProvider provides color,
-        LocalTypographyProvider provides CommonTypography,
-        LocalShapesProvider provides Shapes,
+        LocalBaseColorProvider provides color,
+        LocalBaseTypographyProvider provides BaseTypography,
+        LocalBaseShapesProvider provides BaseShapes,
         content = content
     )
 }

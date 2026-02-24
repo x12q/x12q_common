@@ -30,7 +30,7 @@ import com.x12q.common_ui.preview_views.PreviewBoxOnSurface
 import com.x12q.common_ui.preview_views.PreviewColumn
 import com.x12q.common_ui.text.ButtonText
 import com.x12q.common_ui.theme.BaseTheme
-import com.x12q.common_ui.theme.LocalCommonColorProvider
+import com.x12q.common_ui.theme.LocalBaseColorProvider
 
 
 @Composable
@@ -78,7 +78,7 @@ fun Button2(
 ) {
 
     val actualColor = if(colors == Button2Colors.undefined){
-        LocalCommonColorProvider.current.buttonColors
+        LocalBaseColorProvider.current.buttonColors
     }else{
         colors
     }
