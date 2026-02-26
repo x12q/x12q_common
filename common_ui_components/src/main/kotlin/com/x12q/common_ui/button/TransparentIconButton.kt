@@ -26,11 +26,11 @@ fun TransparentIconButton(
                 backgroundColor = Color.Transparent,
                 borderStrokeColor = Color.Transparent
             )
-        ).apply {
+        ).let {
             if(tint!=null){
-                this.copy(iconTint = tint)
+                it.copy(iconTint = tint)
             }else{
-                this
+                it
             }
         },
         contentPadding = contentPadding,

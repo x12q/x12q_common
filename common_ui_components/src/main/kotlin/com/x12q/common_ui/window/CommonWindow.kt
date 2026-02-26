@@ -24,8 +24,97 @@ import org.jetbrains.jewel.window.newFullscreenControls
 import org.jetbrains.jewel.window.styling.DecoratedWindowStyle
 import org.jetbrains.jewel.window.styling.LocalDecoratedWindowStyle
 import org.jetbrains.jewel.window.styling.LocalTitleBarStyle
+import org.jetbrains.jewel.window.styling.TitleBarColors
 import org.jetbrains.jewel.window.styling.TitleBarStyle
 import org.jetbrains.jewel.window.utils.DesktopPlatform
+/**
+ * A convenient wrapper of jewel title bar and decorated window.
+ */
+@Composable
+fun CommonWindow(
+    onCloseRequest: () -> Unit,
+    state: WindowState = rememberWindowState(),
+    isDarkTheme: Boolean = true,
+    titleBarColors: TitleBarColors? = null,
+    visible: Boolean = true,
+    title: String = "",
+    icon: Painter? = null,
+    resizable: Boolean = true,
+    enabled: Boolean = true,
+    focusable: Boolean = true,
+    alwaysOnTop: Boolean = false,
+    onPreviewKeyEvent: (KeyEvent) -> Boolean = { false },
+    onKeyEvent: (KeyEvent) -> Boolean = { false },
+    titleBarContent: @Composable TitleBarScope.() -> Unit,
+    content: @Composable DecoratedWindowScope.() -> Unit,
+){
+    CommonWindow(
+        onCloseRequest = onCloseRequest,
+        state = state,
+        decoratedWindowStyle = CommonDecoratedWindowStyle(isDarkTheme),
+        titleBarStyle = CommonTitleBarStyle(isDarkTheme, titleBarColors),
+        visible = visible,
+        title = title,
+        icon = icon,
+        resizable = resizable,
+        enabled = enabled,
+        focusable = focusable,
+        alwaysOnTop = alwaysOnTop,
+        onPreviewKeyEvent = onPreviewKeyEvent,
+        onKeyEvent = onKeyEvent,
+        titleBarContent = titleBarContent,
+        content = content,
+    )
+}
+
+
+/**
+ * A convenient wrapper of jewel title bar and decorated window.
+ */
+@Composable
+fun CommonWindow(
+    onCloseRequest: () -> Unit,
+    state: WindowState = rememberWindowState(),
+    decoratedWindowStyle: DecoratedWindowStyle,
+    titleBarStyle:TitleBarStyle,
+    visible: Boolean = true,
+    title: String = "",
+    icon: Painter? = null,
+    resizable: Boolean = true,
+    enabled: Boolean = true,
+    focusable: Boolean = true,
+    alwaysOnTop: Boolean = false,
+    onPreviewKeyEvent: (KeyEvent) -> Boolean = { false },
+    onKeyEvent: (KeyEvent) -> Boolean = { false },
+    titleBarContent: @Composable TitleBarScope.() -> Unit,
+    content: @Composable DecoratedWindowScope.() -> Unit,
+) {
+    CompositionLocalProvider(
+        LocalDecoratedWindowStyle provides decoratedWindowStyle,
+        LocalTitleBarStyle provides titleBarStyle,
+    ) {
+        DecoratedWindow(
+            onCloseRequest = onCloseRequest,
+            state = state,
+            visible = visible,
+            title = title,
+            icon = icon,
+            resizable = resizable,
+            enabled = enabled,
+            focusable = focusable,
+            alwaysOnTop = alwaysOnTop,
+            onPreviewKeyEvent = onPreviewKeyEvent,
+            onKeyEvent = onKeyEvent,
+            style = LocalDecoratedWindowStyle.current,
+        ) {
+            Column {
+                TitleBarView(style = LocalTitleBarStyle.current, content = titleBarContent)
+                content()
+            }
+        }
+    }
+}
+
 
 /**
  * a preconfig wrapper for [TitleBar]
@@ -67,53 +156,6 @@ fun DecoratedWindowScope.TitleBarView(
     }
 }
 
-/**
- * A convenient wrapper of jewel title bar and decorated window.
- */
-@Composable
-fun CommonWindow(
-    onCloseRequest: () -> Unit,
-    state: WindowState = rememberWindowState(),
-    isDarkTheme: Boolean = true,
-    visible: Boolean = true,
-    title: String = "",
-    icon: Painter? = null,
-    resizable: Boolean = true,
-    enabled: Boolean = true,
-    focusable: Boolean = true,
-    alwaysOnTop: Boolean = false,
-    onPreviewKeyEvent: (KeyEvent) -> Boolean = { false },
-    onKeyEvent: (KeyEvent) -> Boolean = { false },
-    titleBarContent: @Composable TitleBarScope.() -> Unit,
-    content: @Composable DecoratedWindowScope.() -> Unit,
-) {
-    CompositionLocalProvider(
-        LocalDecoratedWindowStyle provides CommonDecoratedWindowStyle(isDarkTheme),
-        LocalTitleBarStyle provides CommonTitleBarStyle(isDarkTheme)
-    ) {
-        DecoratedWindow(
-            onCloseRequest = onCloseRequest,
-            state = state,
-            visible = visible,
-            title = title,
-            icon = icon,
-            resizable = resizable,
-            enabled = enabled,
-            focusable = focusable,
-            alwaysOnTop = alwaysOnTop,
-            onPreviewKeyEvent = onPreviewKeyEvent,
-            onKeyEvent = onKeyEvent,
-            style = LocalDecoratedWindowStyle.current,
-        ) {
-            Column {
-                TitleBarView(style = LocalTitleBarStyle.current, content = titleBarContent)
-                content()
-            }
-        }
-    }
-}
-
-
 @Composable
 fun CommonDecoratedWindowStyle(isDark: Boolean): DecoratedWindowStyle {
     if (isDark) {
@@ -124,10 +166,17 @@ fun CommonDecoratedWindowStyle(isDark: Boolean): DecoratedWindowStyle {
 }
 
 @Composable
-fun CommonTitleBarStyle(isDark: Boolean): TitleBarStyle {
+fun CommonTitleBarStyle(
+    isDark: Boolean,
+    titleBarColors: TitleBarColors? = null,
+): TitleBarStyle {
     return if (isDark) {
-        TitleBarStyle.dark()
+        TitleBarStyle.dark(
+            colors = titleBarColors ?: TitleBarColors.dark()
+        )
     } else {
-        TitleBarStyle.light()
+        TitleBarStyle.light(
+            colors = titleBarColors ?: TitleBarColors.light()
+        )
     }
 }
