@@ -35,6 +35,7 @@ fun CommonWindow(
     onCloseRequest: () -> Unit,
     state: WindowState = rememberWindowState(),
     isDarkTheme: Boolean = true,
+    // will override the default title bar color, regardless of the dark-theme setting
     titleBarColors: TitleBarColors? = null,
     visible: Boolean = true,
     title: String = "",

@@ -61,7 +61,9 @@ fun Button2(
     }
 }
 
-
+/**
+ * A custom button made from box
+ */
 @Composable
 fun Button2(
     onClick: () -> Unit,
